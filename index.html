@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -10,9 +11,33 @@
     <link href='https://api.mapbox.com/mapbox-gl-js/v2.12.0/mapbox-gl.css' rel='stylesheet' />
 
     <link rel="stylesheet" href="style.css">
+
+    <!-- bootstrap -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 </head>
+
 <body>
-    <div id="map"></div>
-    <script src='script.js'> </script>
-</body>
-</html>
+
+
+    <div class="jumbotron text-center" style="margin-bottom:0">
+        <h1>Welcome to my website</h1>
+        <p>Check all the highlighted colleges out!</p>
+    </div>
+
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-lg-3">
+                <p></p>
+            </div>
+            <div class="col-lg-6">
+                <div id=map class=map> </div>
+                <script src='script.js'> </script>
+            </div>
+            <div class="col-lg-3">
+                <p></p>
+            </div>
+        </div>
+    </div>
+<br>
