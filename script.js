@@ -11,3 +11,4 @@ const map = new mapboxgl.Map({
     zoom: 12,
 
 });
+
