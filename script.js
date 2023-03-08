@@ -12,3 +12,7 @@ const map = new mapboxgl.Map({
 
 });
 
+map.addSource('streetcarstops', {
+    type: 'vector',
+    url: 'mapbox://talhav.6g3w7l9x'
+});
