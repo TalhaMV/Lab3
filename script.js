@@ -16,3 +16,14 @@ map.addSource('streetcarstops', {
     type: 'vector',
     url: 'mapbox://talhav.6g3w7l9x'
 });
+
+map.map.addLayer({
+    'id': 'stops',
+    'type': 'circle',
+    'source': 'streetcarstops',
+    'source-layer': 'streetcarstops-bfbajq',
+    'paint': {
+    'circle-radius': 10,
+    'circle-color': 'red'
+}
+})
