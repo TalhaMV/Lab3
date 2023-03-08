@@ -25,8 +25,6 @@ map.on('load', () => {
 
         data: 'https://raw.githubusercontent.com/TalhaMV/Lab3/main/streetcarstops.geojson'
 
-        //'https://smith-lg.github.io/ggr472-wk6-demo/data/torontomusicvenues.geojson'
-
     });
 
 
@@ -48,22 +46,35 @@ map.on('load', () => {
         }
 
     });
-    
-    // Add a layer showing the places.
-    map.addLayer({
-        'id': 'labels',
-        'type': 'symbol',
-        'source': 'streetcar',
-        'layout': {
-            'icon-image': ['get', 'icon'],
-            'icon-allow-overlap': true
-        }
+
+   
+
+    map.addSource('neighborhood',{
+        type: 'geojson',
+        data: 'https://raw.githubusercontent.com/TalhaMV/Lab3/main/neighborhood.geojson'
+
     });
+
+    map.addLayer({
+        'id': 'census',
+        'type': 'fill',
+        'source': 'neighborhood',
+        'maxzoom': 11,
+        'paint': {
+
+            'fill-color': '#000000',
+
+            'fill-opacity': 1,
+
+            'fill-outline-color': 'purple'
+
+        },
+    })
 
 
 
     map.on('click', 'scar', (e) => {
-        // Copy coordinates array.
+        // Making popup correspond to individual coordinates of point, we are also making features of the points into variables.
         const coordinates = e.features[0].geometry.coordinates.slice();
         const description = e.features[0].properties.name;
         const network = e.features[0].properties.network;
@@ -77,6 +88,7 @@ map.on('load', () => {
             coordinates[0] += e.lngLat.lng > coordinates[0] ? 360 : -360;
         }
 
+        // This determines how the popup will look
         new mapboxgl.Popup()
             .setLngLat(coordinates)
             .setHTML("<p2> " + "name:" + description + "</p2>" + "<br>" + "<p2>" + "network:" + network + "</p2>" + "<br>" + "<p2>" + "shelter:" + shelter + "</p2>")
@@ -94,62 +106,32 @@ map.on('load', () => {
     });
 
 
-    // function getTagsFilter(streetcar) {
+  // We will do a fly out to enable/disable our neighborhood filter
+    const start = {
+        center: [-79.39830123888215, 43.664695891060376], // // starting center in [lng, lat]
+        zoom: 12,
+    };
 
-    //     //no tags set
-    //     if ((streetcar || []).length === 0) return;
+    const end = {
+        center: [-79.6543, 43.5870],
+        zoom: 10,
+    };
 
-    //     //expression for each tag
-    //     const tagFilters = streetcar.map(streetcar => ['in', tag, ['get', 'tags']])
 
-    //     return ['any'].concat(tagFilters);
+    let isAtStart = true;
 
-    // }
+    document.getElementById('fly').addEventListener('click', () => {
+        // Zoom out to show census tracts
+        const target = isAtStart ? end : start;
+        isAtStart = !isAtStart;
 
-    // const toggleabletagIds = ['all', 'undergardiner', 'transit', 'people', 'aerial', 'construction', 'traffic'];
 
-    // const tagIdToTextContent = {
-    //     'all': 'All',
-    //     'undergardiner': 'Under Gardiner',
-    //     'transit': 'Transit',
-    //     'people': 'People',
-    //     'aerial': 'Aerial',
-    //     'construction': 'Construction',
-    //     'traffic': 'Traffic'
-    // };
-
-    // // Set up the corresponding toggle button for each layer.
-    // for (const id of toggleabletagIds) {
-    //     // Skip layers that already have a button set up.
-    //     if (document.getElementById(id)) {
-    //         continue;
-    //     }
-
-    //     // Create a link.
-    //     const link = document.createElement('a');
-    //     link.id = id;
-    //     link.href = '#';
-    //     link.textContent = tagIdToTextContent[id];
-    //     link.className = 'active';
-
-    //     // Filter layer when the tag toggle is clicked.
-    //     link.onclick = function (e) {
-    //         const clickedTag = this.id;
-    //         e.preventDefault();
-    //         e.stopPropagation();
-
-    //         if (clickedTag == 'all') {
-    //             map.setFilter("photos", null); //yeepee!
-    //         } else {
-    //             const allowedTags = []
-    //             allowedTags.push(clickedTag)
-    //             map.setFilter("photos", getTagsFilter(allowedTags)); //yeepee!
-    //         }
-    //     };
-
-    //     const layers = document.getElementById('tagmenu');
-    //     layers.appendChild(link);
-    // }
-
+        map.flyTo({
+            ...target,
+            center: [-79.39830123888215, 43.664695891060376], //NE coordinates
+            duration: 1000,
+            essential: true // this animation is considered essential with respect to prefers-reduced-motion
+        });
+    });
 
 });

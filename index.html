@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Lab 3</title>
     <script src='https://api.mapbox.com/mapbox-gl-js/v2.12.0/mapbox-gl.js'></script>
 
     <link href='https://api.mapbox.com/mapbox-gl-js/v2.12.0/mapbox-gl.css' rel='stylesheet' />
@@ -19,20 +19,20 @@
 </head>
 
 <body>
-
+ <button id="fly">Click to zoom out and see census tracts! Click again to return to streetcar stop view</button>
 
     <div class="jumbotron text-center" style="margin-bottom:0">
         <h1>Streetcar Locater</h1>
-        <p>See all the streetcars you want by filter!</p>
+        <p>See all the streetcars you want by just clicking each point!</p>
     </div>
 
     <div class="container-fluid">
         <div class="row">
-            <div class="col-lg-8">
+            <div class="col-lg-9">
                 <div id=map class=map> </div>
                 <script src='script.js'> </script>
             </div>
-            <div class = "col-lg-4">
+            <div class = "col-lg-3">
                 <p> Undefined simply means false, as it there is no value for the listed question on the popups</p>
             </div>
             </div>
