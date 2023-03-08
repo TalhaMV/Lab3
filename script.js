@@ -48,51 +48,18 @@ map.on('load', () => {
         }
 
     });
-
-    map.addSource('college', {
-
-        'type': 'vector',
-
-        'url': 'mapbox://talhav.0d4na3al'
-
-    });
-
-
-
-
-    map.addLayer({
-
-        'id': 'provterr-fill',
-
-        'type': 'fill',
-
-        'source': 'college',
-
-        'paint': {
-
-            'fill-color': '#000000',
-
-            'fill-opacity': 0.5,
-
-            'fill-outline-color': 'purple'
-
-        },
-
-        'source-layer': 'uoftcolleges-5imo5h'
-
-    });
-
+    
     // Add a layer showing the places.
-map.addLayer({
-    'id': 'labels',
-    'type': 'symbol',
-    'source': 'streetcar',
-    'layout': {
-    'icon-image': ['get', 'icon'],
-    'icon-allow-overlap': true
-    }
+    map.addLayer({
+        'id': 'labels',
+        'type': 'symbol',
+        'source': 'streetcar',
+        'layout': {
+            'icon-image': ['get', 'icon'],
+            'icon-allow-overlap': true
+        }
     });
-     
+
 
 
     map.on('click', 'scar', (e) => {
@@ -112,20 +79,77 @@ map.addLayer({
 
         new mapboxgl.Popup()
             .setLngLat(coordinates)
-            .setHTML("<p2> " + "name:"+ description + "</p2>" +  "<br>" + "<p2>" + "network:" + network + "</p2>" +"<br>" +"<p2>" + "shelter:" + shelter + "</p2>")
+            .setHTML("<p2> " + "name:" + description + "</p2>" + "<br>" + "<p2>" + "network:" + network + "</p2>" + "<br>" + "<p2>" + "shelter:" + shelter + "</p2>")
             .addTo(map);
     });
 
     // Change the cursor to a pointer when the mouse is over the places layer.
-map.on('mouseenter', 'scar', () => {
-    map.getCanvas().style.cursor = 'pointer';
-    });
-     
-    // Change it back to a pointer when it leaves.
-    map.on('mouseleave', 'scar', () => {
-    map.getCanvas().style.cursor = '';
+    map.on('mouseenter', 'scar', () => {
+        map.getCanvas().style.cursor = 'pointer';
     });
 
+    // Change it back to a pointer when it leaves.
+    map.on('mouseleave', 'scar', () => {
+        map.getCanvas().style.cursor = '';
+    });
+
+
+    // function getTagsFilter(streetcar) {
+
+    //     //no tags set
+    //     if ((streetcar || []).length === 0) return;
+
+    //     //expression for each tag
+    //     const tagFilters = streetcar.map(streetcar => ['in', tag, ['get', 'tags']])
+
+    //     return ['any'].concat(tagFilters);
+
+    // }
+
+    // const toggleabletagIds = ['all', 'undergardiner', 'transit', 'people', 'aerial', 'construction', 'traffic'];
+
+    // const tagIdToTextContent = {
+    //     'all': 'All',
+    //     'undergardiner': 'Under Gardiner',
+    //     'transit': 'Transit',
+    //     'people': 'People',
+    //     'aerial': 'Aerial',
+    //     'construction': 'Construction',
+    //     'traffic': 'Traffic'
+    // };
+
+    // // Set up the corresponding toggle button for each layer.
+    // for (const id of toggleabletagIds) {
+    //     // Skip layers that already have a button set up.
+    //     if (document.getElementById(id)) {
+    //         continue;
+    //     }
+
+    //     // Create a link.
+    //     const link = document.createElement('a');
+    //     link.id = id;
+    //     link.href = '#';
+    //     link.textContent = tagIdToTextContent[id];
+    //     link.className = 'active';
+
+    //     // Filter layer when the tag toggle is clicked.
+    //     link.onclick = function (e) {
+    //         const clickedTag = this.id;
+    //         e.preventDefault();
+    //         e.stopPropagation();
+
+    //         if (clickedTag == 'all') {
+    //             map.setFilter("photos", null); //yeepee!
+    //         } else {
+    //             const allowedTags = []
+    //             allowedTags.push(clickedTag)
+    //             map.setFilter("photos", getTagsFilter(allowedTags)); //yeepee!
+    //         }
+    //     };
+
+    //     const layers = document.getElementById('tagmenu');
+    //     layers.appendChild(link);
+    // }
 
 
 });
